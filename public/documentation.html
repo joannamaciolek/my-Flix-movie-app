@@ -1,17 +1,248 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Movie API Documentation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation</title>
+    <style>
+      tr, td ,th {
+       border: 1px solid black;
+       padding:10px;
+       border-collapse: collapse;
+     }
+     tr td:nth-child(1), tr td:nth-child(2), tr td:nth-child(3){
+       text-align: center;
+     }
+    thead {
+    background-color: #72D393;
+    }
+    </style>
   </head>
   <body>
     <div>
-      <h1>myFlix Documentation</h1>
-      <br>
-      <p>
-
-      </p>
+      <h1>myFlix</h1>
+        <p>
+          myFlix is the web application which provides users with access to information about different movies, directors, and genres. Users are able to sign up, update their personal information, and create a list of their favorite movies.
+          <br>
+          myFlix consists of well designed REST API and architected database built using JavaScript, Node.js, Express, and MongoDB.
+          <br>
+          The server­side of the myFlix application processes user requests & performs operations against the data stored in the database.
+        </p>
     </div>
+      <h2>Documentation</h2>
+      <table>
+        <caption> <h2> MOVIE REQUESTS </h2></caption>
+        <thead>
+          <tr>
+            <th>BUSINESS LOGIC</th>
+            <th>URL</th>
+            <th>HTTP METHOD</th>
+            <th>REQUEST BODY DATA FORMAT</th>
+            <th>RESPONSE BODY DATA FORMAT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Get the list of all movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>JSON object holding data about all movies</td>
+          </tr>
+          <tr>
+            <td>Get the data about a single movie by title</td>
+            <td>/movies/[Title]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>JSON object holding data about single movie containing a title,description,genre,director,image URL.Example:
+              <br>
+              {<br>
+              title : 'The Pursuit of Happyness',<br>
+              description: 'A struggling salesman takes custody of his son as he\'s poised to begin a life-changing professional career.',<br>
+              genre: 'Biography',<br>
+              director: <br>
+                { <br>
+                name: 'Gabriele Muccino',<br>
+                bio: 'Gabriele Muccino is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.',<br>
+                birthYear: '1967',<br>
+                deathYear: 'n/a',<br>
+                movies: ['The Pursuit of Happyness', 'Seven Pounds'] <br>
+                },<br>
+              actors: ['Will Smith' , 'Jaden Smith'],<br>
+              releaseYear: '2006',<br>
+              imageURL: 'https://www.imdb.com/title/tt0454921/mediaviewer/rm2553318400'<br>
+            }
+            </td>
+          </tr>
+          <tr>
+            <td>Get the list of movies by genre</td>
+            <td>/movies/genres/[Genre]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>JSON object holding data about all the movies containing a specific genre defined by the user.Example: <br>
+              {<br>
+              title : 'About a Boy',<br>
+              description: 'A cynical, immature young man is taught how to act like a grown-up by a little boy.',<br>
+              genre: 'Comedy',<br>
+              director:<br>
+               {<br>
+                name: 'Chris & Paul Weitz',<br>
+                bio: 'Christopher Weitz is an American film director, screenwriter, and producer. He is best known for his work with his brother Paul Weitz on the comedy films',<br>
+                birthYear: '1969',<br>
+                deathYear: 'n/a',<br>
+                movies: ['About a Boy', 'The Golden Compass']<br>
+                },<br>
+              actors: ['Hugh Grant', 'Nicholas Hoult', 'Toni Collette' ],<br>
+              releaseYear: '2002',<br>
+              imageURL: 'https://www.imdb.com/title/tt0276751/mediaviewer/rm2323043328'<br>
+              },<br>
+              {<br>
+              title : 'Amélie',<br>
+              description: 'Amélie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.',<br>
+              genre: 'Comedy',<br>
+              director:<br>
+               {<br>
+                name: 'Jean-Pierre Jeunet',<br>
+                bio: 'Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.',<br>
+                birthYear: '1953',<br>
+                deathYear: 'n/a',<br>
+                movies: ['Amélie', 'A Very Long Engagement']<br>
+                },<br>
+              actors: ['Audrey Tautou', 'Mathieu Kassovitz' ],<br>
+              releaseYear: '2001',<br>
+              imageURL: 'https://www.imdb.com/title/tt0211915/mediaviewer/rm1617958656'<br>
+              },<br>
+            </td>
+          </tr>
+          <tr>
+            <td>Get data about a director by name</td>
+            <td>/movies/directors/[Name]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>a JSON object holding data about single director name ,bio, birth year, death year,movies.Example:<br>
+             {<br>
+              name: 'Jean-Pierre Jeunet',<br>
+              bio: 'Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.',<br>
+              birthYear: '1953',<br>
+              deathYear: 'n/a',<br>
+              movies: ['Amélie', 'A Very Long Engagement']<br>
+              }<br>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <table>
+        <caption> <h2> USER REQUESTS </h2></caption>
+          <thead>
+            <tr>
+              <th>BUSINESS LOGIC</th>
+              <th>URL</th>
+              <th>HTTP METHOD</th>
+              <th>REQUEST BODY DATA FORMAT</th>
+              <th>RESPONSE BODY DATA FORMAT</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Create new user</td>
+              <td>/users/</td>
+              <td>POST</td>
+              <td>A JSON object holding data about user to add with following structure:<br>
+                {<br>
+                username: movielover1<br>
+                password: Movie1<br>
+                email: johnsmith@gmail.com<br>
+                date of birth: 19.03.1987<br>
+                }
+              </td>
+              <td>JSON object holding data about user account that was just created. Example:<br>
+                {<br>
+                username: movielover1<br>
+                password: Movie1<br>
+                email: johnsmith@gmail.com<br>
+                date of birth: 19.03.1987<br>
+                }<br>
+              </td>
+            </tr>
+            <tr>
+              <td>Get/Display user profile</td>
+              <td>/users/[Username]</td>
+              <td>GET</td>
+              <td>A JSON object holding data required to log in.Example:<br>
+                {<br>
+                username: movielover1<br>
+                password: Movie1<br>
+                }
+              </td>
+              <td>JSON object holding data about user account with the following structure:<br>
+                {<br>
+                username: movielover1<br>
+                password: Movie1<br>
+                email: johnsmith@gmail.com<br>
+                date of birth: 19.03.1987<br>
+                }<br>
+              </td>
+            </tr>
+            <tr>
+              <td>Update user information (username, password, email, date of birth)</td>
+              <td>/users/[Username]</td>
+              <td>PUT</td>
+              <td>A JSON object holding data about user to be updated with following structure:<br>
+                {<br>
+                username: movielover2<br>
+                password: Movie2<br>
+                email: martasmith@hotmail.com<br>
+                date of birth: 20.09.1980<br>
+                }
+              </td>
+              <td>A text message indicating whether the user info was successfully updated
+              </td>
+            </tr>
+            <tr>
+              <td>Add a movie to user's list of favorites</td>
+              <td>/users/favourites_list/[Username]</td>
+              <td>POST</td>
+              <td>A JSON object holding data about movie title to be added to user's list of favourites.Example:<br>
+                {<br>
+                title:"The Matrix"<br>
+                }<br>
+              </td>
+              <td>JSON object holding data about updated user's list of favourite movies.Example:<br>
+                  {<br>
+                  favourites_list: [ 'About a boy' , 'Amelie' , 'The Matrix']<br>
+                }<br>
+              </td>
+            </tr>
+            <tr>
+              <td>Remove a movie from user's list of favorites</td>
+              <td>/users/favourites_list/[Username]</td>
+              <td>DELETE</td>
+              <td>A JSON object holding data about movie title to be removed to user's list of favourites.Example:<br>
+                {<br>
+                title: "101 Dalmatians"<br>
+                }<br>
+              </td>
+              <td>A text message indicating that the movie was successfully removed from list of favourites.
+              </td>
+            </tr>
+            <tr>
+              <td>Delete user profile</td>
+              <td>/users/[Username]/</td>
+              <td>DELETE</td>
+              <td>A JSON object holding data about user to be deregistered with following structure:<br>
+                {<br>
+                username: movielover1<br>
+                password: Movie1<br>
+                email: johnsmith@gmail.com<br>
+                date of birth: 19.03.1987<br>
+                }<br>
+              </td>
+              <td>A text message indicating that user was successfully deregistered.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
   </body>
 </html>

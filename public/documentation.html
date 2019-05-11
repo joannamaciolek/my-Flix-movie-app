@@ -150,18 +150,18 @@
               <td>POST</td>
               <td>A JSON object holding data about user to add with following structure:<br>
                 {<br>
-                username: movielover1<br>
-                password: Movie1<br>
-                email: johnsmith@gmail.com<br>
-                date of birth: 19.03.1987<br>
+                username: 'Jonathan Smith',<br>
+                password: 'Movie1',<br>
+                email: 'johnsmith@gmail.com',<br>
+                birthday: '19.03.1987'<br>
                 }
               </td>
               <td>JSON object holding data about user account that was just created. Example:<br>
                 {<br>
-                username: movielover1<br>
-                password: Movie1<br>
-                email: johnsmith@gmail.com<br>
-                date of birth: 19.03.1987<br>
+                username: 'Martha Nowak',<br>
+                password: 'Movie2',<br>
+                email: 'martanowak@gmail.com',<br>
+                birthday: '20.05.1980'<br>
                 }<br>
               </td>
             </tr>
@@ -171,16 +171,16 @@
               <td>GET</td>
               <td>A JSON object holding data required to log in.Example:<br>
                 {<br>
-                username: movielover1<br>
-                password: Movie1<br>
+                username: 'Jonathan Smith',<br>
+                password: 'Movie1',<br>
                 }
               </td>
               <td>JSON object holding data about user account with the following structure:<br>
                 {<br>
-                username: movielover1<br>
-                password: Movie1<br>
-                email: johnsmith@gmail.com<br>
-                date of birth: 19.03.1987<br>
+                username: 'Jonathan Smith',<br>
+                password: 'Movie1',<br>
+                email: 'johnsmith@gmail.com',<br>
+                birthday: '19.03.1987'<br>
                 }<br>
               </td>
             </tr>
@@ -190,10 +190,10 @@
               <td>PUT</td>
               <td>A JSON object holding data about user to be updated with following structure:<br>
                 {<br>
-                username: movielover2<br>
-                password: Movie2<br>
-                email: martasmith@hotmail.com<br>
-                date of birth: 20.09.1980<br>
+                username: 'Martha Nowak',<br>
+                password: 'Movie2',<br>
+                email: 'martanowak@gmail.com',<br>
+                birthday: '20.05.1980'<br>
                 }
               </td>
               <td>A text message indicating whether the user info was successfully updated
@@ -201,11 +201,11 @@
             </tr>
             <tr>
               <td>Add a movie to user's list of favorites</td>
-              <td>/users/favourites_list/[Username]</td>
+              <td>/users/favourites_list/[Username]/[Title]</td>
               <td>POST</td>
               <td>A JSON object holding data about movie title to be added to user's list of favourites.Example:<br>
                 {<br>
-                title:"The Matrix"<br>
+                title:'The Matrix'<br>
                 }<br>
               </td>
               <td>JSON object holding data about updated user's list of favourite movies.Example:<br>
@@ -216,11 +216,11 @@
             </tr>
             <tr>
               <td>Remove a movie from user's list of favorites</td>
-              <td>/users/favourites_list/[Username]</td>
+              <td>/users/favourites_list/[Username]/[Title]</td>
               <td>DELETE</td>
               <td>A JSON object holding data about movie title to be removed to user's list of favourites.Example:<br>
                 {<br>
-                title: "101 Dalmatians"<br>
+                title: '101 Dalmatians'<br>
                 }<br>
               </td>
               <td>A text message indicating that the movie was successfully removed from list of favourites.
@@ -232,10 +232,10 @@
               <td>DELETE</td>
               <td>A JSON object holding data about user to be deregistered with following structure:<br>
                 {<br>
-                username: movielover1<br>
-                password: Movie1<br>
-                email: johnsmith@gmail.com<br>
-                date of birth: 19.03.1987<br>
+                username: 'Jonathan Smith',<br>
+                password: 'Movie1',<br>
+                email: 'johnsmith@gmail.com',<br>
+                birthday: '19.03.1987'<br>
                 }<br>
               </td>
               <td>A text message indicating that user was successfully deregistered.

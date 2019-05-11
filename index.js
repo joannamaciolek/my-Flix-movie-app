@@ -92,6 +92,15 @@ let topMovies = [ {
   imageURL: 'https://www.imdb.com/title/tt0103074/mediaviewer/rm133085952'
 },
 ]
+
+let Users = [
+  {
+    username: 'Jonathan Smith',
+    password: 'Movie1',
+    email: 'johnsmith@gmail.com',
+    birthday: '19.03.1987'
+  }
+]
 //Gets the list of ALL movies
 app.get('/movies', function(req, res) {
   res.json(topMovies)
@@ -104,13 +113,13 @@ app.get("/movies/:title", (req, res) => {
 });
 
 //Get the list of movies by genre
-app.get("/movies/genre/:genre", (req, res) => {
+app.get("/movies/genres/:genre", (req, res) => {
   res.json(topMovies.find( (movie) =>
     { return movie.genre === req.params.genre   }));
 });
 
 //Gets the data about a director by name
-app.get("movies/directors/:name", (req, res) => {
+app.get("/movies/directors/:name", (req, res) => {
   res.send('Successful GET request returning data on director by name');
 });
 
@@ -141,14 +150,14 @@ app.put("/users/:username", (req, res) => {
 });
 
 // Adds movie to the users list of favourites
-app.post("/users/favourites_list/:username", (req, res) => {
+app.post("/users/favourites_list/:username/:title", (req, res) => {
 
   res.status(201).send("The movie: " + req.params.title + " has been successfully added to your list of favourites.");
   res.status(404).send("The movie: " + req.params.title + " was not found.")
   });
 
 // Removes movie from the users list of favourites
-  app.post("/users/favourites_list/:username", (req, res) => {
+  app.delete("/users/favourites_list/:username/:title", (req, res) => {
 
     res.status(201).send("The movie: " + req.params.title + " has been successfully removed from your list of favourites.");
     res.status(404).send("The movie: " + req.params.title + " was not found.")

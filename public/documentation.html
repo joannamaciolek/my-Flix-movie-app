@@ -57,20 +57,20 @@
             <td>JSON object holding data about single movie containing a title,description,genre,director,image URL.Example:
               <br>
               {<br>
-              title : 'The Pursuit of Happyness',<br>
-              description: 'A struggling salesman takes custody of his son as he\'s poised to begin a life-changing professional career.',<br>
-              genre: 'Biography',<br>
-              director: <br>
+              _id : ObjectId("5ce07a959b4b5f011e3c7ae6"),<br>
+              Title : "The Pursuit of Happyness",<br>
+              Description: :"A struggling salesman takes custody of his son as he is poised to begin a life-changing professional career.",<br>
+              Genre: {<br>
+                Name:"Biography",<br>
+                Description: "Biography is a film that dramatizes the life of a non-fictional or historically-based person or people. Such films show the life of a historical person and the central character's real name is used."<br>
+                } ,<br>
+              Director: <br>
                 { <br>
-                name: 'Gabriele Muccino',<br>
-                bio: 'Gabriele Muccino is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.',<br>
-                birthYear: '1967',<br>
-                deathYear: 'n/a',<br>
-                movies: ['The Pursuit of Happyness', 'Seven Pounds'] <br>
+                Name: "Gabriele Muccino" ,<br>
+                Bio: "Gabriele Muccino is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",<br>
+                BirthYear: "1967"<br>
                 },<br>
-              actors: ['Will Smith' , 'Jaden Smith'],<br>
-              releaseYear: '2006',<br>
-              imageURL: 'https://www.imdb.com/title/tt0454921/mediaviewer/rm2553318400'<br>
+              ImageURL: "https://www.imdb.com/title/tt0454921/mediaviewer/rm2553318400" <br>
             }
             </td>
           </tr>
@@ -81,36 +81,36 @@
             <td>None</td>
             <td>JSON object holding data about all the movies containing a specific genre defined by the user.Example: <br>
               {<br>
-              title : 'About a Boy',<br>
-              description: 'A cynical, immature young man is taught how to act like a grown-up by a little boy.',<br>
-              genre: 'Comedy',<br>
-              director:<br>
-               {<br>
-                name: 'Chris & Paul Weitz',<br>
-                bio: 'Christopher Weitz is an American film director, screenwriter, and producer. He is best known for his work with his brother Paul Weitz on the comedy films',<br>
-                birthYear: '1969',<br>
-                deathYear: 'n/a',<br>
-                movies: ['About a Boy', 'The Golden Compass']<br>
+              _id : ObjectId("5ce07ede9b4b5f011e3c7ae8"),<br>
+              Title : "About a Boy,"<br>
+              Description: "A cynical, immature young man is taught how to act like a grown-up by a little boy.",<br>
+              Genre: { <br>
+                Name:"Comedy" ,<br>
+                Description:"Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."<br>
                 },<br>
-              actors: ['Hugh Grant', 'Nicholas Hoult', 'Toni Collette' ],<br>
-              releaseYear: '2002',<br>
-              imageURL: 'https://www.imdb.com/title/tt0276751/mediaviewer/rm2323043328'<br>
+              Director:<br>
+               {<br>
+                Name: "Chris Weitz",<br>
+                Bio: "Christopher Weitz is an American film director, screenwriter, and producer. He is best known for his work with his brother Paul Weitz on the comedy films",<br>
+                BirthYear: "1969"<br>
+                },<br>
+              ImageURL: "https://www.imdb.com/title/tt0276751/mediaviewer/rm2323043328" <br>
               },<br>
               {<br>
-              title : 'Amélie',<br>
-              description: 'Amélie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.',<br>
-              genre: 'Comedy',<br>
-              director:<br>
-               {<br>
-                name: 'Jean-Pierre Jeunet',<br>
-                bio: 'Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.',<br>
-                birthYear: '1953',<br>
-                deathYear: 'n/a',<br>
-                movies: ['Amélie', 'A Very Long Engagement']<br>
+              _id : ObjectId("5ce084ee9b4b5f011e3c7af0"),<br>
+              Title : "Amélie" ,<br>
+              Description: "Amélie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.",<br>
+              Genre: { <br>
+                Name:"Comedy" ,<br>
+                Description:"Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."<br>
                 },<br>
-              actors: ['Audrey Tautou', 'Mathieu Kassovitz' ],<br>
-              releaseYear: '2001',<br>
-              imageURL: 'https://www.imdb.com/title/tt0211915/mediaviewer/rm1617958656'<br>
+              Director:<br>
+               {<br>
+                Name: "Jean-Pierre Jeunet" ,<br>
+                Bio: "Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.",<br>
+                BirthYear: "1953"<br>
+                },<br>
+              ImageURL: "https://www.imdb.com/title/tt0211915/mediaviewer/rm1617958656"<br>
               },<br>
             </td>
           </tr>
@@ -121,11 +121,9 @@
             <td>None</td>
             <td>a JSON object holding data about single director name ,bio, birth year, death year,movies.Example:<br>
              {<br>
-              name: 'Jean-Pierre Jeunet',<br>
-              bio: 'Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.',<br>
-              birthYear: '1953',<br>
-              deathYear: 'n/a',<br>
-              movies: ['Amélie', 'A Very Long Engagement']<br>
+             Name: "Jean-Pierre Jeunet" ,<br>
+             Bio: "Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.",<br>
+             BirthYear: "1953"<br>
               }<br>
             </td>
           </tr>
@@ -150,18 +148,20 @@
               <td>POST</td>
               <td>A JSON object holding data about user to add with following structure:<br>
                 {<br>
-                username: 'Jonathan Smith',<br>
-                password: 'Movie1',<br>
-                email: 'johnsmith@gmail.com',<br>
-                birthday: '19.03.1987'<br>
-                }
+                Username: "Jonathan Smith",<br>
+                Password:"Movie1",<br>
+                Email:"johnsmith@gmail.com",<br>
+                Birthday: "1987-03-19",<br>
+                Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]<br>
+                }<br>
               </td>
               <td>JSON object holding data about user account that was just created. Example:<br>
                 {<br>
-                username: 'Martha Nowak',<br>
-                password: 'Movie2',<br>
-                email: 'martanowak@gmail.com',<br>
-                birthday: '20.05.1980'<br>
+                Username: "Jonathan Smith",<br>
+                Password:"Movie1",<br>
+                Email:"johnsmith@gmail.com",<br>
+                Birthday: "1987-03-19",<br>
+                Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]
                 }<br>
               </td>
             </tr>
@@ -171,16 +171,17 @@
               <td>GET</td>
               <td>A JSON object holding data required to log in.Example:<br>
                 {<br>
-                username: 'Jonathan Smith',<br>
-                password: 'Movie1',<br>
+                  Username: "Jonathan Smith",<br>
+                  Password:"Movie1",<br>
                 }
               </td>
               <td>JSON object holding data about user account with the following structure:<br>
                 {<br>
-                username: 'Jonathan Smith',<br>
-                password: 'Movie1',<br>
-                email: 'johnsmith@gmail.com',<br>
-                birthday: '19.03.1987'<br>
+                Username: "Jonathan Smith",<br>
+                Password:"Movie1",<br>
+                Email:"johnsmith@gmail.com",<br>
+                Birthday: "1987-03-19",<br>
+                Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]<br>
                 }<br>
               </td>
             </tr>
@@ -190,10 +191,11 @@
               <td>PUT</td>
               <td>A JSON object holding data about user to be updated with following structure:<br>
                 {<br>
-                username: 'Martha Nowak',<br>
-                password: 'Movie2',<br>
-                email: 'martanowak@gmail.com',<br>
-                birthday: '20.05.1980'<br>
+                Username: "Martha Nowak",<br>
+                Password: "Movie2" ,<br>
+                Email: "martanowak@gmail.com" ,<br>
+                Birthday: "1985-05-20"<br>
+                Favourites: [ObjectId("5ce0825d9b4b5f011e3c7aec"), ObjectId("5ce07ff89b4b5f011e3c7ae9")]
                 }
               </td>
               <td>A text message indicating whether the user info was successfully updated
@@ -205,12 +207,12 @@
               <td>POST</td>
               <td>A JSON object holding data about movie title to be added to user's list of favourites.Example:<br>
                 {<br>
-                title:'The Matrix'<br>
+                Title:"The Matrix"<br>
                 }<br>
               </td>
               <td>JSON object holding data about updated user's list of favourite movies.Example:<br>
                   {<br>
-                  favourites_list: [ 'About a boy' , 'Amelie' , 'The Matrix']<br>
+                  Favourites: [ObjectId("5ce0825d9b4b5f011e3c7aec"), ObjectId("5ce07ff89b4b5f011e3c7ae9")]<br>
                 }<br>
               </td>
             </tr>
@@ -220,7 +222,7 @@
               <td>DELETE</td>
               <td>A JSON object holding data about movie title to be removed to user's list of favourites.Example:<br>
                 {<br>
-                title: '101 Dalmatians'<br>
+                Title: "101 Dalmatians"<br>
                 }<br>
               </td>
               <td>A text message indicating that the movie was successfully removed from list of favourites.
@@ -232,10 +234,11 @@
               <td>DELETE</td>
               <td>A JSON object holding data about user to be deregistered with following structure:<br>
                 {<br>
-                username: 'Jonathan Smith',<br>
-                password: 'Movie1',<br>
-                email: 'johnsmith@gmail.com',<br>
-                birthday: '19.03.1987'<br>
+                Username: "Jonathan Smith",<br>
+                Password:"Movie1",<br>
+                Email:"johnsmith@gmail.com",<br>
+                Birthday: "1987-03-19",<br>
+                Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]<br>
                 }<br>
               </td>
               <td>A text message indicating that user was successfully deregistered.

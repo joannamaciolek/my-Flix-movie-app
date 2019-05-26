@@ -1,3 +1,11 @@
+//importing mongoose for business logic layer to work
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+//connecting Mongoose to the database
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 //importing express
 const express = require('express'),
   //importing morgan
@@ -15,168 +23,165 @@ app.use(express.static('public'));
 //logs requests using Morgan’s “common” format
 app.use(morgan('common'));
 
-//list of movies
-let topMovies = [ {
-  title : 'The Pursuit of Happyness',
-  description: 'A struggling salesman takes custody of his son as he\'s poised to begin a life-changing professional career.',
-  genre: 'Biography',
-  director: {
-    name: 'Gabriele Muccino',
-    bio: 'Gabriele Muccino is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.',
-    birthYear: '1967',
-    deathYear: 'n/a',
-    movies: ['The Pursuit of Happyness', 'Seven Pounds']
-  },
-  actors: ['Will Smith' , 'Jaden Smith'],
-  releaseYear: '2006',
-  imageURL: 'https://www.imdb.com/title/tt0454921/mediaviewer/rm2553318400'
-},
-{
-  title : 'About a Boy',
-  description: 'A cynical, immature young man is taught how to act like a grown-up by a little boy.',
-  genre: 'Comedy',
-  director: {
-    name: 'Chris & Paul Weitz',
-    bio: 'Christopher Weitz is an American film director, screenwriter, and producer. He is best known for his work with his brother Paul Weitz on the comedy films',
-    birthYear: '1969',
-    deathYear: 'n/a',
-    movies: ['About a Boy', 'The Golden Compass']
-  },
-  actors: ['Hugh Grant', 'Nicholas Hoult', 'Toni Collette' ],
-  releaseYear: '2002',
-  imageURL: 'https://www.imdb.com/title/tt0276751/mediaviewer/rm2323043328'
-},
-{
-  title : 'Amélie',
-  description: 'Amélie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.',
-  genre: 'Comedy',
-  director: {
-    name: 'Jean-Pierre Jeunet',
-    bio: 'Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.',
-    birthYear: '1953',
-    deathYear: 'n/a',
-    movies: ['Amélie', 'A Very Long Engagement']
-  },
-  actors: ['Audrey Tautou', 'Mathieu Kassovitz' ],
-  releaseYear: '2001',
-  imageURL: 'https://www.imdb.com/title/tt0211915/mediaviewer/rm1617958656'
-},
-{
-  title : 'A Good Year',
-  description: 'A British investment broker inherits his uncle\'s chateau and vineyard in Provence, where he spent much of his childhood. He discovers a new laid-back lifestyle as he tries to renovate the estate to be sold.',
-  genre: 'Comedy',
-  director: {
-    name: 'Ridley Scott',
-    bio: 'Ridley Scott is an English film director and producer.Scott\'s work has an atmospheric, highly concentrated visual style.',
-    birthYear: '1937',
-    deathYear: 'n/a',
-    movies: ['A Good Year', 'Thelma & Louise', 'Alien', 'Gladiator']
-  },
-  actors: ['Russell Crowe', 'Abbie Cornish', 'Albert Finney' ],
-  releaseYear: '2006',
-  imageURL: 'https://www.imdb.com/title/tt0401445/mediaviewer/rm2831325440'
-},
-{
-  title : 'Thelma & Louise',
-  description: 'Two best friends set out on an adventure, but it soon turns around to a terrifying escape from being hunted by the police, as these two girls escape for the crimes they committed.',
-  genre: 'Adventure',
-  director: {
-    name: 'Ridley Scott',
-    bio: 'Ridley Scott is an English film director and producer.Scott\'s work has an atmospheric, highly concentrated visual style.',
-    birthYear: '1937',
-    deathYear: 'n/a',
-    movies: ['A Good Year', 'Thelma & Louise', 'Alien', 'Gladiator']
-  },
-  actors: ['Susan Sarandon', 'Geena Davis' ],
-  releaseYear: '1991',
-  imageURL: 'https://www.imdb.com/title/tt0103074/mediaviewer/rm133085952'
-},
-]
-
-let Users = [
-  {
-    username: 'Jonathan Smith',
-    password: 'Movie1',
-    email: 'johnsmith@gmail.com',
-    birthday: '19.03.1987'
-  }
-]
 //Gets the list of ALL movies
-app.get('/movies', function(req, res) {
-  res.json(topMovies)
+app.get('/movies',function(req, res) {
+  Movies.find()
+  .then(function(movies){
+    res.status(201).json(movies)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error:" + err);
+  });
 });
 
 //Gets the data about a single movie by title
-app.get("/movies/:title", (req, res) => {
-  res.json(topMovies.find( (movie) =>
-    { return movie.title === req.params.title   }));
+app.get('/movies/:Title',function(req, res){
+  Movies.findOne({Title : req.params.Title})
+  .then(function(movies){
+    res.json(movies)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error:" + err);
+  });
 });
 
-//Get the list of movies by genre
-app.get("/movies/genres/:genre", (req, res) => {
-  res.json(topMovies.find( (movie) =>
-    { return movie.genre === req.params.genre   }));
+//Get the genre of a single movie based on its title
+app.get('/movies/genres/:Title',function(req, res) {
+  Movies.findOne({Title: req.params.Title})
+  .then(function(movie){
+    if(movie){
+      res.status(201).send("Movie with the title : " + movie.Title + " is  a " + movie.Genre.Name + " ." );
+    }else{
+      res.status(404).send("Movie with the title : " + req.params.Title + " was not found.");
+        }
+    })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error:" + err);
+  });
 });
 
 //Gets the data about a director by name
-app.get("/movies/directors/:name", (req, res) => {
-  res.send('Successful GET request returning data on director by name');
+app.get('/movies/directors/:Name', function(req, res) {
+  Movies.findOne({"Director.Name" : req.params.Name})
+  .then(function(movies){
+    res.json(movies.Director)
+  })
+  .catch(function(err) {
+    console.error(err);
+    res.status(500).send("Error:" + err);
+  });
 });
 
 //Creates new user profile
-app.post("/users/", (req, res) => {
-  let newUser = req.body;
-  //check if user profile contains all required information
-  if (!newUser.username && !newUser.password && !newUser.email && !newUser.birthday) {
-      const message = "Missing user information in request body";
-      res.status(400).send(message);
-  } else {
-      //adds newUser to the database
-      Users.push(newUser);
-      res.status(201).send(newUser);
+app.post('/users', function(req, res){
+Users.findOne({Username: req.body.Username })
+  .then(function(user){
+    if(user){
+      return res.status(400).send(req.body.Username + " already exists.");
+    }else{
+      Users
+      .create ({
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
+      })
+      .then(function(user) {res.status(201).json(user) })
+      .catch(function(error){
+        console.error(error);
+        res.status(500).send("Error: " + error);
+      })
     }
+  }).catch(function(error){
+      console.error(error);
+      res.status(500).send("Error: " + error);
   });
+});
 
-//Gets user profile
-  app.get("/users/:username", (req, res) => {
-    res.send('Successful GET request returning data on user profile');
+//Gets user profile by username
+  app.get('/users/:Username', function(req, res) {
+    Users.findOne({Username : req.params.Username})
+    .then(function(user){
+      res.json(user)
+    })
+    .catch(function(err) {
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    });
   });
 
 // Updates user profile
-app.put("/users/:username", (req, res) => {
-  let user = Users.find((user) => { return user.username === req.params.username });
-  res.status(201).send("The user account: " + req.params.username + " has been successfully updated .");
-  res.status(404).send("Account with the username: " + req.params.username + " was not found.")
+app.put('/users/:Username', function(req, res) {
+  Users.findOneAndUpdate({Username: req.params.Username}),
+  {$set:
+    {
+      Username: req.body.Username,
+      Password:req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  {new: true},//ensures updated user profile is returned
+  function(err,updatedUser){
+    if (err){
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    }else{
+      res.json(updatedUser)
+    }
+  }
 });
 
 // Adds movie to the users list of favourites
-app.post("/users/favourites_list/:username/:title", (req, res) => {
-
-  res.status(201).send("The movie: " + req.params.title + " has been successfully added to your list of favourites.");
-  res.status(404).send("The movie: " + req.params.title + " was not found.")
-  });
+app.post('/users/:Username/Favourites/:MovieID',function(req, res){
+  Users.findOneAndUpdate({Username: req.params.Username} ,{
+    $push : {Favourites : req.params.MovieID}
+  },
+  {new: true},
+  function(err,updatedUser){
+    if (err){
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    }else{
+      res.json(updatedUser)
+    }
+  })
+});
 
 // Removes movie from the users list of favourites
-  app.delete("/users/favourites_list/:username/:title", (req, res) => {
-
-    res.status(201).send("The movie: " + req.params.title + " has been successfully removed from your list of favourites.");
-    res.status(404).send("The movie: " + req.params.title + " was not found.")
-    });
-
-// Deletes user account
-  app.delete("/users/:username", (req, res) => {
-      let user = Users.find((user) => { return user.username === req.params.username });
-
-      if (user) {
-        Users.filter(function(obj) { return obj.username !== req.params.username });
-        res.status(201).send("Account with the username : " + req.params.username + " was deleted.")
-      }
-    });
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send('Ooops! Something went wrong!');
+  app.delete('/users/:Username/Favourites/:MovieID',function(req, res){
+    Users.findOneAndRemove ({Username: req.params.Username}),{
+     $pull : {Favourites : req.params.MovieID}
+  },
+  {new: true},
+  function(err,updatedUser){
+    if (err){
+      console.error(err);
+      res.status(500).send("Error:" + err);
+    }else{
+      res.json(updatedUser)
+    }
+  }
 });
+
+// Deletes user account by username
+  app.delete('/users/:Username',function(req, res){
+    Users.findOneAndRemove ({Username: req.params.Username })
+    .then(function(user) {
+      if (!user){
+        res.status(400).send("Account with the username: " + req.params.Username + " was not found .");
+      }else{
+        res.status(200).send("Account with the username : " + req.params.Username + " was successfully deleted.");
+      }
+    })
+    .catch(function(err){
+      console.error(err.stack);
+      res.status(500).send("Error: " + err);
+    });
+  });
 
 // listen for requests
 app.listen(8080, () =>

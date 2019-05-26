@@ -70,48 +70,18 @@
                 Bio: "Gabriele Muccino is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",<br>
                 BirthYear: "1967"<br>
                 },<br>
-              ImageURL: "https://www.imdb.com/title/tt0454921/mediaviewer/rm2553318400" <br>
+              ImageURL: "https://www.imdb.com/title/tt0454921/mediaviewer/rm2553318400" ,<br>
+              Featured: true <br>
             }
             </td>
           </tr>
           <tr>
-            <td>Get the list of movies by genre</td>
-            <td>/movies/genres/[Genre]</td>
+            <td>Get the genre of a single movie by title</td>
+            <td>/movies/genres/[Title]</td>
             <td>GET</td>
             <td>None</td>
-            <td>JSON object holding data about all the movies containing a specific genre defined by the user.Example: <br>
-              {<br>
-              _id : ObjectId("5ce07ede9b4b5f011e3c7ae8"),<br>
-              Title : "About a Boy,"<br>
-              Description: "A cynical, immature young man is taught how to act like a grown-up by a little boy.",<br>
-              Genre: { <br>
-                Name:"Comedy" ,<br>
-                Description:"Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."<br>
-                },<br>
-              Director:<br>
-               {<br>
-                Name: "Chris Weitz",<br>
-                Bio: "Christopher Weitz is an American film director, screenwriter, and producer. He is best known for his work with his brother Paul Weitz on the comedy films",<br>
-                BirthYear: "1969"<br>
-                },<br>
-              ImageURL: "https://www.imdb.com/title/tt0276751/mediaviewer/rm2323043328" <br>
-              },<br>
-              {<br>
-              _id : ObjectId("5ce084ee9b4b5f011e3c7af0"),<br>
-              Title : "Amélie" ,<br>
-              Description: "Amélie is an innocent and naive girl in Paris with her own sense of justice. She decides to help those around her and, along the way, discovers love.",<br>
-              Genre: { <br>
-                Name:"Comedy" ,<br>
-                Description:"Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect."<br>
-                },<br>
-              Director:<br>
-               {<br>
-                Name: "Jean-Pierre Jeunet" ,<br>
-                Bio: "Jean-Pierre Jeunet is a French film director, producer, and screenwriter. His films are known to mix elements of fantasy, reality and science fiction either to create idealized realities or to give relevance to mundane situations.",<br>
-                BirthYear: "1953"<br>
-                },<br>
-              ImageURL: "https://www.imdb.com/title/tt0211915/mediaviewer/rm1617958656"<br>
-              },<br>
+            <td>A text message with the genre of the requested movie.Example: <br>
+              Movie with the title: "About a Boy" is a Comedy.<br>
             </td>
           </tr>
           <tr>
@@ -203,29 +173,40 @@
             </tr>
             <tr>
               <td>Add a movie to user's list of favorites</td>
-              <td>/users/favourites_list/[Username]/[Title]</td>
+              <td>/users/[Username]/Favourites/[MovieID]</td>
               <td>POST</td>
-              <td>A JSON object holding data about movie title to be added to user's list of favourites.Example:<br>
+              <td>A JSON object holding data about movie ID to be added to user's list of favourites.Example:<br>
                 {<br>
-                Title:"The Matrix"<br>
+                MovieID:"3444ef3"<br>
                 }<br>
               </td>
-              <td>JSON object holding data about updated user's list of favourite movies.Example:<br>
-                  {<br>
-                  Favourites: [ObjectId("5ce0825d9b4b5f011e3c7aec"), ObjectId("5ce07ff89b4b5f011e3c7ae9")]<br>
+              <td>JSON object holding data about updated user profile including the updated list of favorite movies.Example:<br>
+                {<br>
+                Username: "Jonathan Smith",<br>
+                Password:"Movie1",<br>
+                Email:"johnsmith@gmail.com",<br>
+                Birthday: "1987-03-19",<br>
+                Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]<br>
                 }<br>
               </td>
             </tr>
             <tr>
               <td>Remove a movie from user's list of favorites</td>
-              <td>/users/favourites_list/[Username]/[Title]</td>
+              <td>/users/[Username]/Favourites/[MovieID]</td>
               <td>DELETE</td>
-              <td>A JSON object holding data about movie title to be removed to user's list of favourites.Example:<br>
+              <td>A JSON object holding data about MovieID to be removed from user's list of favourites.Example:<br>
                 {<br>
-                Title: "101 Dalmatians"<br>
+                MovieID:"3444ef3"<br>
                 }<br>
               </td>
-              <td>A text message indicating that the movie was successfully removed from list of favourites.
+              <td>JSON object holding data about updated user profile including the updated list of favorite movies.Example:<br>
+                {<br>
+                Username: "Jonathan Smith",<br>
+                Password:"Movie1",<br>
+                Email:"johnsmith@gmail.com",<br>
+                Birthday: "1987-03-19",<br>
+                Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]<br>
+                }<br>
               </td>
             </tr>
             <tr>
@@ -241,7 +222,7 @@
                 Favourites: [ObjectId("5ce07ede9b4b5f011e3c7ae8"), ObjectId("5ce0846e9b4b5f011e3c7aef")]<br>
                 }<br>
               </td>
-              <td>A text message indicating that user was successfully deregistered.
+              <td>A text message indicating that the account with specific username was successfully deleted."
               </td>
             </tr>
           </tbody>

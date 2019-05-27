@@ -1,27 +1,25 @@
-//importing mongoose for business logic layer to work
+//importing required modules
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
 const Movies = Models.Movie;
 const Users = Models.User;
-//connecting Mongoose to the database
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
-//importing express
-const express = require('express'),
-  //importing morgan
-  morgan = require('morgan'),
-  //importing bodyParser & uuid
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
+const express = require('express')
+const morgan = require('morgan')
+const bodyParser = require("body-parser")
+const uuid = require("uuid");
+
 //creating variable to use express functionality
 const app = express();
-//using middleware function for bodyParer
-app.use(bodyParser.json());
 //serves documentation.html file from public folder
 app.use(express.static('public'));
 
+//using middleware function for bodyParer
+app.use(bodyParser.json());
 //logs requests using Morgan’s “common” format
 app.use(morgan('common'));
+
+//connecting Mongoose to the database
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 //Gets the list of ALL movies
 app.get('/movies',function(req, res) {
@@ -115,7 +113,7 @@ Users.findOne({Username: req.body.Username })
 
 // Updates user profile
 app.put('/users/:Username', function(req, res) {
-  Users.findOneAndUpdate({Username: req.params.Username}),
+  Users.findOneAndUpdate({Username: req.params.Username},
   {$set:
     {
       Username: req.body.Username,
@@ -132,13 +130,13 @@ app.put('/users/:Username', function(req, res) {
     }else{
       res.json(updatedUser)
     }
-  }
+  });
 });
 
 // Adds movie to the users list of favourites
 app.post('/users/:Username/Favourites/:MovieID',function(req, res){
   Users.findOneAndUpdate({Username: req.params.Username} ,{
-    $push : {Favourites : req.params.MovieID}
+    $addToSet  : {Favourites : req.params.MovieID}
   },
   {new: true},
   function(err,updatedUser){
@@ -153,7 +151,7 @@ app.post('/users/:Username/Favourites/:MovieID',function(req, res){
 
 // Removes movie from the users list of favourites
   app.delete('/users/:Username/Favourites/:MovieID',function(req, res){
-    Users.findOneAndRemove ({Username: req.params.Username}),{
+    Users.findOneAndUpdate ({Username: req.params.Username},{
      $pull : {Favourites : req.params.MovieID}
   },
   {new: true},
@@ -164,7 +162,7 @@ app.post('/users/:Username/Favourites/:MovieID',function(req, res){
     }else{
       res.json(updatedUser)
     }
-  }
+  });
 });
 
 // Deletes user account by username

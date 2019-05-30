@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
-const express = require('express')
-const morgan = require('morgan')
-const bodyParser = require("body-parser")
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require("body-parser");
 const uuid = require("uuid");
+const passport = require ('passport');
+require('./passport');
 
 //creating variable to use express functionality
 const app = express();
@@ -21,8 +23,11 @@ app.use(morgan('common'));
 //connecting Mongoose to the database
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
+//importing auth.js file
+var auth = require('./auth')(app);
+
 //Gets the list of ALL movies
-app.get('/movies',function(req, res) {
+app.get('/movies', passport.authenticate('jwt',{ session: false}), function(req, res) {
   Movies.find()
   .then(function(movies){
     res.status(201).json(movies)
@@ -34,7 +39,7 @@ app.get('/movies',function(req, res) {
 });
 
 //Gets the data about a single movie by title
-app.get('/movies/:Title',function(req, res){
+app.get('/movies/:Title', passport.authenticate('jwt',{ session: false}), function(req, res){
   Movies.findOne({Title : req.params.Title})
   .then(function(movies){
     res.json(movies)
@@ -46,7 +51,7 @@ app.get('/movies/:Title',function(req, res){
 });
 
 //Get the genre of a single movie based on its title
-app.get('/movies/genres/:Title',function(req, res) {
+app.get('/movies/genres/:Title', passport.authenticate('jwt',{ session: false}), function(req, res) {
   Movies.findOne({Title: req.params.Title})
   .then(function(movie){
     if(movie){
@@ -62,7 +67,7 @@ app.get('/movies/genres/:Title',function(req, res) {
 });
 
 //Gets the data about a director by name
-app.get('/movies/directors/:Name', function(req, res) {
+app.get('/movies/directors/:Name', passport.authenticate('jwt',{ session: false}), function(req, res) {
   Movies.findOne({"Director.Name" : req.params.Name})
   .then(function(movies){
     res.json(movies.Director)
@@ -100,7 +105,7 @@ Users.findOne({Username: req.body.Username })
 });
 
 //Gets user profile by username
-  app.get('/users/:Username', function(req, res) {
+  app.get('/users/:Username', passport.authenticate('jwt',{ session: false}), function(req, res) {
     Users.findOne({Username : req.params.Username})
     .then(function(user){
       res.json(user)
@@ -112,7 +117,7 @@ Users.findOne({Username: req.body.Username })
   });
 
 // Updates user profile
-app.put('/users/:Username', function(req, res) {
+app.put('/users/:Username', passport.authenticate('jwt',{ session: false}), function(req, res) {
   Users.findOneAndUpdate({Username: req.params.Username},
   {$set:
     {
@@ -134,7 +139,7 @@ app.put('/users/:Username', function(req, res) {
 });
 
 // Adds movie to the users list of favourites
-app.post('/users/:Username/Favourites/:MovieID',function(req, res){
+app.post('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ session: false}), function(req, res){
   Users.findOneAndUpdate({Username: req.params.Username} ,{
     $addToSet  : {Favourites : req.params.MovieID}
   },
@@ -150,7 +155,7 @@ app.post('/users/:Username/Favourites/:MovieID',function(req, res){
 });
 
 // Removes movie from the users list of favourites
-  app.delete('/users/:Username/Favourites/:MovieID',function(req, res){
+  app.delete('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ session: false}), function(req, res){
     Users.findOneAndUpdate ({Username: req.params.Username},{
      $pull : {Favourites : req.params.MovieID}
   },
@@ -166,7 +171,7 @@ app.post('/users/:Username/Favourites/:MovieID',function(req, res){
 });
 
 // Deletes user account by username
-  app.delete('/users/:Username',function(req, res){
+  app.delete('/users/:Username', passport.authenticate('jwt',{ session: false}), function(req, res){
     Users.findOneAndRemove ({Username: req.params.Username })
     .then(function(user) {
       if (!user){

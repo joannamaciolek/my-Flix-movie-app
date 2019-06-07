@@ -9,12 +9,11 @@ const bodyParser = require("body-parser");
 const uuid = require("uuid");
 const cors = require('cors');
 const validator = require('express-validator');
-app.use(cors());
 const passport = require ('passport');
 require('./passport');
 
 app.use(validator());
-
+app.use(cors());
 //creating variable to use express functionality
 const app = express();
 //serves documentation.html file from public folder
@@ -25,8 +24,10 @@ app.use(bodyParser.json());
 //logs requests using Morgan’s “common” format
 app.use(morgan('common'));
 
-//connecting Mongoose to the database
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+//connecting Mongoose to the database locally
+//mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+
+mongoose.connect('mongodb+srv://joanna_m:Doglover259!@mydbs-v74fy.mongodb.net/myFlixDB?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 //importing auth.js file
 var auth = require('./auth')(app);

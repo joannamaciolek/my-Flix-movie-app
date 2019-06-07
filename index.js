@@ -236,5 +236,5 @@ app.post('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ s
 // listen for requests
 var port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", function() {
-console.log("Listening on Port 3000");
+console.log("Listening on Port 3000",this.address().port, app.settings.env);
 });

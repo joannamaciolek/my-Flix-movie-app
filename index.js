@@ -1,36 +1,42 @@
-//importing required modules
-const mongoose = require('mongoose');
-const Models = require('./models.js');
-const Movies = Models.Movie;
-const Users = Models.User;
+////////////////REQUIRED MODULES/////////////////////
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require("body-parser");
 const uuid = require("uuid");
+const mongoose = require('mongoose');
 const cors = require('cors');
 const validator = require('express-validator');
 const passport = require ('passport');
+const Models = require('./models.js');
+
 require('./passport');
 
-app.use(validator());
-app.use(cors());
 //creating variable to use express functionality
 const app = express();
-//serves documentation.html file from public folder
-app.use(express.static('public'));
 
-//using middleware function for bodyParer
-app.use(bodyParser.json());
-//logs requests using Morgan’s “common” format
-app.use(morgan('common'));
+//assign the modules
+const Movies = Models.Movie;
+const Users = Models.User;
+
+/////////////CONNECT TO MONGODB//////////////////
 
 //connecting Mongoose to the database locally
 //mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
-
 mongoose.connect('mongodb+srv://joanna_m:Doglover259!@mydbs-v74fy.mongodb.net/myFlixDB?retryWrites=true&w=majority', {useNewUrlParser: true});
 
-//importing auth.js file
-var auth = require('./auth')(app);
+/////////////MIDDLEWARE FUNCTIONS////////////////
+
+//logs requests using Morgan’s “common” format
+app.use(morgan('common'));
+
+//serves documentation.html file from public folder
+app.use(express.static('public'));
+
+//implementing body-parser for POST requests
+app.use(bodyParser.json());
+
+//implementing cors
+app.use(cors());
 
 /* code for cors to give access only to certain domains:
 
@@ -46,6 +52,14 @@ app.use(cors({
   }
 }));
 */
+
+//importing auth.js file
+var auth = require('./auth')(app);
+
+//use express-validator
+app.use(validator());
+
+/////////////////MOVIE REQUESTS////////////////
 
 //Gets the list of ALL movies
 app.get('/movies', passport.authenticate('jwt',{ session: false}), function(req, res) {
@@ -98,6 +112,8 @@ app.get('/movies/directors/:Name', passport.authenticate('jwt',{ session: false}
     res.status(500).send("Error:" + err);
   });
 });
+
+///////////////////USER REQUESTS/////////////////////
 
 //Creates new user profile
 app.post('/users', function(req, res)  {
@@ -232,12 +248,14 @@ app.post('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ s
       res.status(500).send("Error: " + err);
     });
   });
+
   // default textual response when request hits the root folder
   app.get('/', function(req, res) {
     res.send('Welcome to myFlix!');
   });
 
-// listen for requests
+////////////////APP LISTENER///////////////
+
 var port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", function() {
 console.log("Listening on Port 3000");

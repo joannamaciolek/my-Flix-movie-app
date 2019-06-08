@@ -232,6 +232,10 @@ app.post('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ s
       res.status(500).send("Error: " + err);
     });
   });
+  // default textual response when request hits the root folder
+  app.get('/', function(req, res) {
+    res.send('Welcome to myFlix!');
+  });
 
 // listen for requests
 var port = process.env.PORT || 3000;

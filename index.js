@@ -249,6 +249,18 @@ app.post('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ s
     });
   });
 
+//Shows all the users for testing purposes
+  app.get('/users', function (req, res) {
+  Users.find()
+    .then(function (users) {
+      res.status(201).json(users);
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
   // default textual response when request hits the root folder
   app.get('/', function(req, res) {
     res.send('Welcome to myFlix!');

@@ -20,9 +20,8 @@ const Users = Models.User;
 
 /////////////CONNECT TO MONGODB//////////////////
 
-//connecting Mongoose to the database locally
+//connecting Mongoose to the database
 mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
-//mongoose.connect('mongodb+srv://joanna_m:Doglover259!@mydbs-v74fy.mongodb.net/myFlixDB?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 /////////////MIDDLEWARE FUNCTIONS////////////////
 

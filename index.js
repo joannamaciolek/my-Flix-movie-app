@@ -21,8 +21,8 @@ const Users = Models.User;
 /////////////CONNECT TO MONGODB//////////////////
 
 //connecting Mongoose to the database locally
-//mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://joanna_m:Doglover259!@mydbs-v74fy.mongodb.net/myFlixDB?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
+//mongoose.connect('mongodb+srv://joanna_m:Doglover259!@mydbs-v74fy.mongodb.net/myFlixDB?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 /////////////MIDDLEWARE FUNCTIONS////////////////
 
@@ -270,5 +270,5 @@ app.post('/users/:Username/Favourites/:MovieID', passport.authenticate('jwt',{ s
 
 var port = process.env.PORT || 3000;
 app.listen(port, "0.0.0.0", function() {
-console.log("Listening on Port 3000");
+console.log(`Listening on Port ${port}`);
 });

@@ -13,7 +13,7 @@ var movieSchema = mongoose.Schema({
     Bio: String,
     BirthYear: Number
   },
-  ImageURL:[String],
+  ImageUrl:String,
   Featured: Boolean
 });
 

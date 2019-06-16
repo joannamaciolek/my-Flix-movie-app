@@ -34,7 +34,7 @@ app.use(express.static('public'));
 //implementing body-parser for POST requests
 app.use(bodyParser.json());
 
-//implementing cors
+//implementing cors & enabling it for all origins
 app.use(cors());
 
 /* code for cors to give access only to certain domains:
@@ -61,7 +61,7 @@ app.use(validator());
 /////////////////MOVIE REQUESTS////////////////
 
 //Gets the list of ALL movies
-app.get('/movies', passport.authenticate('jwt',{ session: false}), function(req, res) {
+app.get('/movies', function(req, res) {
   Movies.find()
   .then(function(movies){
     res.status(201).json(movies)

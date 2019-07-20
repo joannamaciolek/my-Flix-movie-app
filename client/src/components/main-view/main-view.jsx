@@ -34,6 +34,12 @@ import { MovieView } from '../movie-view/movie-view';
       });
     }
 
+    ResetMainView() {
+    this.setState({
+        selectedMovie: null
+      });
+    }
+
     render() {
       const { movies, selectedMovie } = this.state;
 
@@ -43,7 +49,7 @@ import { MovieView } from '../movie-view/movie-view';
       return (
        <div className="main-view">
         {selectedMovie
-           ? <MovieView movie={selectedMovie}/>
+           ? <MovieView returnCallback={() => this.ResetMainView()} movie={selectedMovie}/>
            : movies.map(movie => (
              <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
            ))

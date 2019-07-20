@@ -16,7 +16,7 @@ import { MovieView } from '../movie-view/movie-view';
     }
     // One of the "hooks" available in a React Component
     componentDidMount() {
-      axios.get('<my-api-endpoint/movies>')
+      axios.get('https://my-flix-1098.herokuapp.com/movies')
         .then(response => {
           // Assign the result to the state
           this.setState({

@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+.app-container {
+  margin-top: 30px;
+}
+
+.registration-form {
+  margin: 0 auto;
+  width: 50%;
+  border: 1px solid #8B9BA5;
+  padding: 10px;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.button-register {
+  background-color: #8B9BA5;
+}
+* {
+  box-sizing: border-box;
+}
+
+.app-container {
+  margin-top: 30px;
+}
+
+.login-form {
+  margin: 0 auto;
+  width: 50%;
+  border: 1px solid #17A2B8;
+  padding: 10px;
+  font-family: "Noto Sans", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+
+.movie-title {
+  font-weight: bold;
+}
+* {
+  box-sizing: border-box;
+}
+
+.movie-view {
+  width: 85%;
+  justify-content: center;
+  margin: auto;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.button-back {
+  margin: 10px;
+  padding: 5px;
+}
+
+div.text-center {
+  margin: 10px;
+}
+
+.movie-title {
+  font-weight: bold;
+}
+* {
+  box-sizing: border-box;
+}
+
+.main-view {
+  width: 85%;
+  justify-content: center;
+  margin: auto;
+  font-family: "Noto Sans", sans-serif;
+}
+.my-flix {
+  color: steelblue;
+}
+
+/*# sourceMappingURL=/src.78399e21.css.map */

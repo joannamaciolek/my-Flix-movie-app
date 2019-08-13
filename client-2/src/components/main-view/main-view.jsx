@@ -51,7 +51,7 @@ import './main-view.scss'
 
   RegisterUser() {
         this.setState({
-            newUser
+            newUser:null
         });
     }
 

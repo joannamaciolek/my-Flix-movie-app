@@ -25,16 +25,13 @@ import './main-view.scss'
     }
     // One of the "hooks" available in a React Component
     componentDidMount() {
-      axios.get('https://my-flix-1098.herokuapp.com/movies')
-        .then(response => {
-          // Assign the result to the state
-          this.setState({
-            movies: response.data
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
+      let accessToken = localStorage.getItem('token');
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
         });
+      this.getMovies(accessToken);
+      }
     }
 
     onMovieClick(movie) {

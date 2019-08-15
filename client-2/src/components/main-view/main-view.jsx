@@ -9,6 +9,7 @@ import { MovieView } from '../movie-view/movie-view';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import './main-view.scss'
 
   export class MainView extends React.Component {
@@ -18,26 +19,10 @@ import './main-view.scss'
 
       this.state = {
         movies: null,
-        selectedMovie: null,
+        selectedMovieId: null,
         user: null,
         newUser:null
       };
-    }
-    // One of the "hooks" available in a React Component
-    componentDidMount() {
-      let accessToken = localStorage.getItem('token');
-      if (accessToken !== null) {
-        this.setState({
-          user: localStorage.getItem('user')
-        });
-      this.getMovies(accessToken);
-      }
-    }
-
-    onMovieClick(movie) {
-      this.setState({
-        selectedMovie: movie
-      });
     }
 
     getMovies(token) {
@@ -55,6 +40,35 @@ import './main-view.scss'
       });
     }
 
+    // One of the "hooks" available in a React Component
+    componentDidMount() {
+      let accessToken = localStorage.getItem('token');
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
+        });
+      this.getMovies(accessToken);
+      }
+
+      window.addEventListener('hashchange', this.handleNewHash, false);
+        this.handleNewHash();
+    }
+
+    handleNewHash = () => {
+    const movieId = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+      this.setState({
+      selectedMovieId: movieId[0]
+      });
+    }
+
+    onMovieClick(movie) {
+      window.location.hash = '#' + movie._id;
+      this.setState({
+        selectedMovieId: movie._id
+      });
+    }
+
+
     onLoggedIn(authData) {
       console.log(authData);
       this.setState({
@@ -63,6 +77,15 @@ import './main-view.scss'
       localStorage.setItem('token', authData.token);
       localStorage.setItem('user', authData.user.Username);
       this.getMovies(authData.token);
+    }
+
+    onLogout() {
+     localStorage.removeItem("token");
+     localStorage.removeItem("user");
+     this.setState({
+       user: null,
+       token: null
+     });
     }
 
   RegisterUser() {
@@ -78,16 +101,23 @@ import './main-view.scss'
     }
 
     render() {
-      const { movies, selectedMovie, user, newUser } = this.state;
+      const { movies, selectedMovieId, user, newUser } = this.state;
 
       if (newUser) return <RegistrationView RegisterUser={newUser => this.RegisterUser()}/>;
       if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
       // Before the movies have been loaded
       if (!movies) return <div className="main-view"/>;
+      const selectedMovie = selectedMovieId ? movies.find(m => m._id === selectedMovieId) : null;
+
 
       return (
        <Container className="main-view" fluid="true">
+         <div>
+           <Button className="logout" variant="info" onClick={() => this.onLogout()} >
+             Log out
+           </Button>
+         </div>
          <Row>
             {selectedMovie
                ?<Col> <MovieView returnCallback={() => this.ResetMainView()} movie={selectedMovie}/> </Col>

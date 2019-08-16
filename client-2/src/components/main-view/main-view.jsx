@@ -1,14 +1,18 @@
 import React from 'react';
 import axios from 'axios';
 
+import { BrowserRouter as Router, Route} from "react-router-dom";
+
+
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import './main-view.scss'
 
@@ -18,10 +22,8 @@ import './main-view.scss'
       super();
 
       this.state = {
-        movies: null,
-        selectedMovieId: null,
+        movies: [],
         user: null,
-        newUser:null
       };
     }
 
@@ -49,16 +51,6 @@ import './main-view.scss'
         });
       this.getMovies(accessToken);
       }
-
-      window.addEventListener('hashchange', this.handleNewHash, false);
-        this.handleNewHash();
-    }
-
-    handleNewHash = () => {
-    const movieId = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
-      this.setState({
-      selectedMovieId: movieId[0]
-      });
     }
 
     onMovieClick(movie) {
@@ -67,7 +59,6 @@ import './main-view.scss'
         selectedMovieId: movie._id
       });
     }
-
 
     onLoggedIn(authData) {
       console.log(authData);
@@ -88,45 +79,40 @@ import './main-view.scss'
      });
     }
 
-  RegisterUser() {
-        this.setState({
-            newUser:null
-        });
-    }
-
-    ResetMainView() {
-    this.setState({
-        selectedMovie: null
-      });
-    }
-
     render() {
-      const { movies, selectedMovieId, user, newUser } = this.state;
-
-      if (newUser) return <RegistrationView RegisterUser={newUser => this.RegisterUser()}/>;
-      if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+      const { movies, user } = this.state;
 
       // Before the movies have been loaded
       if (!movies) return <div className="main-view"/>;
-      const selectedMovie = selectedMovieId ? movies.find(m => m._id === selectedMovieId) : null;
-
 
       return (
-       <Container className="main-view" fluid="true">
-         <div>
-           <Button className="logout" variant="info" onClick={() => this.onLogout()} >
-             Log out
-           </Button>
-         </div>
-         <Row>
-            {selectedMovie
-               ?<Col> <MovieView returnCallback={() => this.ResetMainView()} movie={selectedMovie}/> </Col>
-               : movies.map(movie => (
-                <Col> <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/> </Col>
-               ))
-            }
-         </Row>
-       </Container>
+        <Router>
+         <Container className="main-view" fluid="true">
+           <div>
+             <Button className="logout" variant="info" onClick={() => this.onLogout()} >
+               Log out
+             </Button>
+           </div>
+           <Row>
+            <Route exact path="/" render={() => {
+              if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}
+              />;
+              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+              }
+            }/>
+            <Route path="/register" render={() => <RegistrationView />} />
+            <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
+            <Route path="/directors/:name" render={({ match }) => {
+              if (!movies) return <div className="main-view"/>;
+              return <DirectorView director={movies.find(m => m.Director.Name === match.params.name)}/>}
+            } />
+            <Route path="/genres/:name" render={({ match }) => {
+              if (!movies) return <div className="main-view"/>;
+              return <GenreView director={movies.find(m => m.Genre.Name === match.params.name).Genre}/>}
+            } />
+           </Row>
+         </Container>
+        </Router>
       );
     }
   }

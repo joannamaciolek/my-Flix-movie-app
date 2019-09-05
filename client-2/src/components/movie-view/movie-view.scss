@@ -3,7 +3,6 @@
 }
 
 .movie-view {
-    width: 85%;
     justify-content: center;
     margin: auto;
     font-family: 'Noto Sans', sans-serif;
@@ -20,4 +19,8 @@ div.text-center{
 
 .movie-title{
   font-weight: bold;
+}
+
+.btn-sm {
+  margin:12px;
 }

@@ -2,27 +2,37 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import './genre-view.scss'
+import './genre-view.scss';
 
 import { Link } from "react-router-dom";
 
-export function GenreView(props) {
+export class GenreView extends React.Component {
 
-  const { movies, genreName } = props;
-  if (!movies || !movies.length) return null;
-  const movie = movies.find(m => m.Genre.Name === props.genreName);
+  constructor() {
+    super();
+
+    this.state = {};
+  }
+
+  render() {
+    const {genre} = this.props;
+
+    if (!genre) return null;
 
     return (
-      <Card style={{ width: '16rem', height:'20rem' }}>
+      <Card className="genre-info" style={{ width: '18rem' }}>
         <Card.Body>
-          <Card.Title className="genre-info">{movie.Genre.Name}</Card.Title>
+          <Card.Title className="genre-name">{genre.Name}</Card.Title>
           <Card.Text>
-          Description: {movie.Genre.Description}
+          Description: <br/>
+          {genre.Description}
+          <br/>
           </Card.Text>
-          <Link to={`/movies/${movie._id}`}>
+          <Link to={`/`}>
             <Button className="button-card" variant="info">Back</Button>
           </Link>
         </Card.Body>
       </Card>
     );
   }
+}

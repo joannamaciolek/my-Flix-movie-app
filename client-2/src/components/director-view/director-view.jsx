@@ -2,29 +2,42 @@ import React from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import './director-view.scss'
+import './director-view.scss';
 
 import { Link } from "react-router-dom";
 
-export function DirectorView(props) {
+export class DirectorView extends React.Component {
 
-  const { movies, directorName } = props;
-  if (!movies || !movies.length) return null;
-  const director = movies.find(m => m.Director.Name == directorName).Director
+  constructor() {
+    super();
+
+    this.state = {};
+  }
+
+  render() {
+    const {director} = this.props;
+
+    if (!director) return null;
 
     return (
-      <Card style={{ width: '16rem', height:'20rem' }}>
+      <Card className="director-info" style={{ width: '18rem' }}>
         <Card.Body>
-          <Card.Title className="director-info">{director.Name}</Card.Title>
+          <Card.Title className="director-name">{director.Name}</Card.Title>
           <Card.Text>
-          Biography: {director.Bio}
+          Biography: <br/>
           <br/>
-          Birth Year: {director.BirthYear}
+          {director.Bio}
+          <br/>
+          <br/>
+          Birth Year:  {director.BirthYear}
           </Card.Text>
-          <Link to={`/movies/${movies._id}`}>
-            <Button className="button-card" variant="info">Back</Button>
-          </Link>
+          <div className="text-center">
+            <Link to={`/`}>
+              <Button className="button-card" variant="info">Back</Button>
+            </Link>
+          </div>
         </Card.Body>
       </Card>
     );
   }
+}

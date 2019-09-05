@@ -28,12 +28,12 @@ export class MovieView extends React.Component {
           <Card.Text>{movie.Description}</Card.Text>
           <ListGroup className="list-group-flush" variant="flush">
             <ListGroup.Item>Genre: {movie.Genre.Name}</ListGroup.Item>
-              <Link to={`/genres/${movie.Genre.Name}`}>
-                <Button variant="link">Learn more</Button>
+              <Link className="text-center" to={`/genres/${movie.Genre.Name}`}>
+                <Button variant="outline-secondary" size="sm">Learn more</Button>
               </Link>
             <ListGroup.Item>Director: {movie.Director.Name}</ListGroup.Item>
-              <Link to={`/directors/${movie.Director.Name}`}>
-                <Button variant="link">Learn more</Button>
+              <Link className="text-center" to={`/directors/${movie.Director.Name}`}>
+                <Button variant="outline-secondary" size="sm">Learn more</Button>
               </Link>
           </ListGroup>
           <div className="text-center">

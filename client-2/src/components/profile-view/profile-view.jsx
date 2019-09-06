@@ -18,7 +18,7 @@ export class ProfileView extends React.Component {
   deleteMovieFromFavs(event, favoriteMovie) {
     event.preventDefault();
     console.log(favoriteMovie);
-    axios.delete(`https://my-flix-1098.herokuapp.com/users${localStorage.getItem('user')}/movies/${favoriteMovie}`, {
+    axios.delete(`https://my-flix-1098.herokuapp.com/users${localStorage.getItem('user')}/Favourites/${favoriteMovie}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
     })
     .then(response => {
@@ -35,7 +35,7 @@ export class ProfileView extends React.Component {
 
     return (
       <Card className="profile-view" style={{ width: '24rem' }}>
-        <Card.Img variant="top" src="images/user_icon.svg" />
+        <Card.Img variant="top" src="/images/user_icon.svg" />
         <Card.Body>
           <Card.Title className="profile-title">My Profile</Card.Title>
           <ListGroup className="list-group-flush" variant="flush">

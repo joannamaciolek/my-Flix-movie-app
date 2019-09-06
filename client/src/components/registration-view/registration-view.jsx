@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -13,10 +13,22 @@ export function RegistrationView(props) {
 
 const handleRegister = (e) => {
   e.preventDefault();
-  console.log(username, password, email, birthday);
-  /* Send a request to the server for authentication */
-  /* then call props.onLoggedIn(username) */
-  };
+
+  axios.post('https://my-flix-1098.herokuapp.com/users', {
+    Username: username,
+    Password: password,
+    Email: email,
+    Birthday: birthday
+  })
+  .then(response => {
+    const data = response.data;
+    console.log(data);
+    window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+  })
+  .catch(e => {
+    console.log('error registering the user')
+  });
+};
 
   return (
     <Form className="registration-form">
@@ -46,10 +58,3 @@ const handleRegister = (e) => {
     </Form>
   );
 }
-
-RegistrationView.propTypes = {
-  username: PropTypes.string.isRequired,
-  password: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  birthday: PropTypes.string.isRequired,
-};

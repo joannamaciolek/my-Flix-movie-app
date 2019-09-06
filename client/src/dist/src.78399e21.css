@@ -2,8 +2,36 @@
   box-sizing: border-box;
 }
 
-.app-container {
-  margin-top: 30px;
+.update-form {
+  justify-content: center;
+  margin: auto;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.profile-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.update-title {
+  font-weight: bold;
+}
+
+.btn-register, .btn-delete {
+  margin: 10px;
+}
+
+.card-img-top {
+  width: 30%;
+}
+
+.row {
+  margin-top: 10px;
+}
+* {
+  box-sizing: border-box;
 }
 
 .registration-form {
@@ -22,7 +50,7 @@
 }
 
 .app-container {
-  margin-top: 30px;
+  margin-top: 1px;
 }
 
 .login-form {
@@ -31,6 +59,10 @@
   border: 1px solid #17A2B8;
   padding: 10px;
   font-family: "Noto Sans", sans-serif;
+}
+
+.btn-submit, .btn-register {
+  margin: 10px;
 }
 * {
   box-sizing: border-box;
@@ -44,7 +76,6 @@
 }
 
 .movie-view {
-  width: 85%;
   justify-content: center;
   margin: auto;
   font-family: "Noto Sans", sans-serif;
@@ -62,18 +93,64 @@ div.text-center {
 .movie-title {
   font-weight: bold;
 }
+
+.btn-sm {
+  margin: 12px;
+}
+* {
+  box-sizing: border-box;
+}
+
+.director-info {
+  justify-content: center;
+  margin: auto;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.button-card {
+  margin: 10px;
+  padding: 5px;
+}
+
+.director-name {
+  font-weight: bold;
+  text-align: center;
+}
+* {
+  box-sizing: border-box;
+}
+
+.genre-info {
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.button-card {
+  margin: 10px;
+  padding: 5px;
+}
+
+.genre-name {
+  font-weight: bold;
+}
 * {
   box-sizing: border-box;
 }
 
 .main-view {
-  width: 85%;
   justify-content: center;
   margin: auto;
   font-family: "Noto Sans", sans-serif;
+  padding: 10px 30px;
 }
-.my-flix {
-  color: steelblue;
+
+.profile-view {
+  margin-right: 2px;
+}
+* {
+  box-sizing: border-box;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */

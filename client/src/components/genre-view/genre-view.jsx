@@ -15,7 +15,7 @@ export class GenreView extends React.Component {
   }
 
   render() {
-    const {genre} = this.props;
+    const { genre } = this.props;
 
     if (!genre) return null;
 
@@ -24,9 +24,10 @@ export class GenreView extends React.Component {
         <Card.Body>
           <Card.Title className="genre-name">{genre.Name}</Card.Title>
           <Card.Text>
-          Description: <br/>
-          {genre.Description}
-          <br/>
+            Description: <br />
+            {genre.Description}
+            <br />
+            <br />
           </Card.Text>
           <Link to={`/`}>
             <Button className="button-card" variant="info">Back</Button>

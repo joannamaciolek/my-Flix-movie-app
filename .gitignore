@@ -3,3 +3,5 @@
 .env
 .cache
 /dist/
+/client-2/
+/client - old/

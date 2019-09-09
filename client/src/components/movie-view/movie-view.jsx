@@ -10,16 +10,16 @@ import { Link } from "react-router-dom";
 
 export function MovieView(props) {
 
-  const {movie,user} = props;
+  const { movie } = props;
   if (!movie) return null;
 
   function handleSubmit(event) {
-      event.preventDefault();
-      axios.put(`https://my-flix-1098.herokuapp.com/users/${user}/Favourites/${movie._id}`, {
-        Username: user
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
-      })
+    event.preventDefault();
+    axios.post(`https://my-flix-1098.herokuapp.com/users/${localStorage.getItem('user')}/Favourites/${movie._id}`, {
+      Username: localStorage.getItem('user')
+    }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    })
       .then(response => {
         console.log(response);
         alert('Movie has been added to your Favorite List!');
@@ -28,31 +28,35 @@ export function MovieView(props) {
         console.log('error adding movie to list');
         alert('Ooooops... Something went wrong!');
       });
-    };
+  };
 
-    return (
-      <Card className="movie-view" style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={movie.ImageUrl} />
+  return (
+    <Card className="movie-view" style={{ width: '45rem' }}>
+      <span> <img className="movie-poster" src={movie.ImageUrl} />
+
         <Card.Body>
           <Card.Title className="movie-title">{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
           <ListGroup className="list-group-flush" variant="flush">
-            <ListGroup.Item>Genre: {movie.Genre.Name}</ListGroup.Item>
+            <ListGroup.Item> <p className="movie-info">Genre: {movie.Genre.Name}</p>
               <Link className="text-center" to={`/genres/${movie.Genre.Name}`}>
                 <Button variant="outline-secondary" size="sm">Learn more</Button>
               </Link>
-            <ListGroup.Item>Director: {movie.Director.Name}</ListGroup.Item>
+            </ListGroup.Item>
+            <ListGroup.Item> <p className="movie-info">Director: {movie.Director.Name}</p>
               <Link className="text-center" to={`/directors/${movie.Director.Name}`}>
                 <Button variant="outline-secondary" size="sm">Learn more</Button>
               </Link>
+            </ListGroup.Item>
           </ListGroup>
           <div className="text-center">
-            <Button variant="outline-warning" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
+            <Button variant="outline-success" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
             <Link to={`/`}>
-              <Button className="button-back" variant="outline-info">BACK</Button>
+              <Button className="button-back" variant="outline-info">MOVIES</Button>
             </Link>
           </div>
         </Card.Body>
-      </Card>
-    );
-  }
+      </span>
+    </Card>
+  );
+}

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './profile-view.scss'
+import updateLogo from '/images/update_icon.svg';
 
 export function ProfileUpdate(props) {
   const {
@@ -68,20 +69,16 @@ export function ProfileUpdate(props) {
         window.open('/', '_self');
       })
       .catch(e => {
-        const errors = e.response.data.errors || [];
-        let errorMessage = '';
-        errors.forEach(err => {
-          errorMessage += err.msg;
-        });
-        alert(`Oops there was an error ${errorMessage}`)
-        console.log(`Error deleting the user account`);
+        alert('Error deleting the account');
       });
   }
 
   return (
     <Form className="update-form">
-      <p className="update-title">Please update your information below:</p>
-      <br />
+      <div className="text-center">
+        <img className="update-img" src={updateLogo} />
+        <p className="update-title">Please update your information below:</p>
+      </div>
       <Form.Group controlId="formNewUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control type="text" placeholder="Your username" value={username} onChange={e => setUsername(e.target.value)} />
@@ -101,8 +98,8 @@ export function ProfileUpdate(props) {
         <Form.Label>Birthday</Form.Label>
         <Form.Control type='date' placeholder='MM/DD/YYYY' value={birthday} onChange={e => setBirthday(e.target.value)} />
       </Form.Group>
-      <div>
-        <Button className="btn-register" variant="info" type="submit" onClick={handleUpdate} >
+      <div className="text-center">
+        <Button className="btn-register" variant="secondary" type="submit" onClick={handleUpdate} >
           Update
       </Button>
         <Button className="btn-delete" variant="danger" type="submit" onClick={handleDelete} >

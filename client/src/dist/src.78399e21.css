@@ -2,10 +2,28 @@
   box-sizing: border-box;
 }
 
+.movie-title {
+  font-weight: bold;
+}
+
+.card {
+  padding: 1px;
+}
+.container {
+  max-width: 1345px;
+}
+* {
+  box-sizing: border-box;
+}
+
 .update-form {
   justify-content: center;
   margin: auto;
   font-family: "Noto Sans", sans-serif;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 20px;
+  width: 50%;
 }
 
 .profile-view {
@@ -17,10 +35,6 @@
 
 div.profile-title {
   text-align: center;
-  font-weight: bold;
-}
-
-.update-title {
   font-weight: bold;
 }
 
@@ -39,6 +53,18 @@ div.profile-title {
 p.favouriteMovies {
   display: inline;
 }
+
+img.update-img {
+  padding: 10px;
+}
+
+p.update-title {
+  font-size: 20px;
+}
+
+div.profile-view.card {
+  margin: auto;
+}
 * {
   box-sizing: border-box;
 }
@@ -53,6 +79,18 @@ p.favouriteMovies {
 
 .button-register {
   background-color: #8B9BA5;
+}
+
+h4 {
+  text-align: center;
+  margin: 10px auto;
+}
+
+img.camera-logo {
+  width: 45px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 * {
   box-sizing: border-box;
@@ -69,16 +107,18 @@ p.favouriteMovies {
 .btn-submit, .btn-register {
   margin: 10px;
 }
-* {
-  box-sizing: border-box;
+
+img.camera-logo {
+  width: 45px;
 }
 
-.movie-title {
-  font-weight: bold;
+h1.main-title {
+  font-size: 2rem;
+  margin-bottom: 25px;
 }
 
-.card {
-  padding: 1px;
+.form-group {
+  margin-top: 12px;
 }
 * {
   box-sizing: border-box;
@@ -164,7 +204,7 @@ img.movie-poster {
   padding: 10px 30px;
 }
 
-.profile-view {
+.profile-btn {
   margin-right: 2px;
 }
 * {

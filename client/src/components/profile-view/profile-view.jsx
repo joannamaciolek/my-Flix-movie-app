@@ -70,10 +70,10 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { userData, username, email, birthday, favouriteMovies } = this.state;
+    const { username, email, birthday, favouriteMovies } = this.state;
 
     return (
-      <Card className="profile-view" style={{ width: '24rem' }}>
+      <Card className="profile-view" style={{ width: '32rem' }}>
         <Card.Img className="profile-logo" variant="top" src={profileLogo} />
         <Card.Body>
           <Card.Title className="profile-title">My Profile</Card.Title>
@@ -94,6 +94,9 @@ export class ProfileView extends React.Component {
                         <p className="favouriteMovies">
                           {JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie).Title}
                         </p>
+                        <Link to={`/movies/${favoriteMovie}`}>
+                          <Button size="sm" variant="info">Open</Button>
+                        </Link>
                         <Button variant="secondary" size="sm" onClick={(event) => this.deleteMovieFromFavs(event, favoriteMovie)}>
                           Delete
                         </Button>

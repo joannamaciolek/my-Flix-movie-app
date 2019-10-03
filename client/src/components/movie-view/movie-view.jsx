@@ -40,17 +40,17 @@ export function MovieView(props) {
           <ListGroup className="list-group-flush" variant="flush">
             <ListGroup.Item> <p className="movie-info">Genre: {movie.Genre.Name}</p>
               <Link className="text-center" to={`/genres/${movie.Genre.Name}`}>
-                <Button variant="outline-secondary" size="sm">Learn more</Button>
+                <Button variant="outline-dark" size="sm">Learn more</Button>
               </Link>
             </ListGroup.Item>
             <ListGroup.Item> <p className="movie-info">Director: {movie.Director.Name}</p>
               <Link className="text-center" to={`/directors/${movie.Director.Name}`}>
-                <Button variant="outline-secondary" size="sm">Learn more</Button>
+                <Button variant="outline-dark" size="sm">Learn more</Button>
               </Link>
             </ListGroup.Item>
           </ListGroup>
           <div className="text-center">
-            <Button variant="outline-success" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
+            <Button variant="outline-secondary" onClick={event => handleSubmit(event)}> Add to Favourites </Button>
             <Link to={`/`}>
               <Button className="button-back" variant="outline-info">MOVIES</Button>
             </Link>

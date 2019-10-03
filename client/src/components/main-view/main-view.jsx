@@ -115,7 +115,7 @@ export class MainView extends React.Component {
     if (!movies) return <div className="main-view" />;
 
     return (
-      <Router>
+      <Router basename="/client">
         <Container className="main-view" fluid="true">
           <div className="btn-group">
             <Link to={`/users/${user}`}>
